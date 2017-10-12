@@ -1,0 +1,63 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.M4'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'java'
+
+    ext {
+        versions = [
+            jdk : '1.8'
+        ]
+    }
+
+    configurations {
+        // replaced with jcl-over-slf4j
+        all*.exclude group: 'commons-logging', module: 'commons-logging'
+        // replaced with log4j-over-slf4j
+        all*.exclude group: 'log4j', module: 'log4j'
+    }
+
+    repositories {
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/snapshot/" }
+        maven { url "https://repo.spring.io/libs-release" }
+        mavenCentral()
+    }
+
+    sourceCompatibility = versions.jdk
+    targetCompatibility = versions.jdk
+    compileJava.options.encoding = 'UTF-8'
+}
+
+project('keycloak-servlet-filter-adapter') {
+    apply plugin: 'war'
+
+    dependencies {
+        compile 'org.springframework:spring-webmvc:5.0.0.RELEASE'
+        compile 'org.springframework:spring-jcl:5.0.0.RELEASE'
+
+        compile 'com.google.code.findbugs:jsr305:3.0.2'
+        compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
+        compile 'org.keycloak:keycloak-servlet-filter-adapter:3.3.0.CR2'
+
+        compile 'ch.qos.logback:logback-classic:1.2.3'
+
+        providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    }
+}
+
+wrapper {
+    gradleVersion = '4.2'
+}

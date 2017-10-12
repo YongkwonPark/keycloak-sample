@@ -1,0 +1,17 @@
+{
+  "realm": "{발급된 realm}",
+  "resource": "{발급된 resource}",
+  "auth-server-url": "{발급된 auth-server-url}",
+  "ssl-required": "external",
+  "expose-token": true,
+  "credentials": {
+    "secret": "{발급된 secret}"
+  },
+  "connection-pool-size": 20,
+  "disable-trust-manager": true,
+  "allow-any-hostname": true,
+  "token-store": "session",
+  "token-minimum-time-to-live": 10,
+  "min-time-between-jwks-requests": 10,
+  "public-key-cache-ttl": 86400
+}

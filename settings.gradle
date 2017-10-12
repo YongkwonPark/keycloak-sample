@@ -1,0 +1,3 @@
+rootProject.name = 'keycloak-sample'
+
+include 'keycloak-servlet-filter-adapter'
